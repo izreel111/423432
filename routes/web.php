@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,4 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('/calculator', [CalculatorController::class, 'index'])->name('calculator.index');
+Route::post('/calculator', [CalculatorController::class, 'calculate'])->name('calculator.calculate');
+
+
+// Ресурсные маршруты /orders (index, create, store, show, edit, update, destroy)
+Route::resource('orders', OrderController::class)->middleware('auth');
 require __DIR__.'/auth.php';
